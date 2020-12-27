@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+import React from 'react';
+import {Container, Row, Col} from "react-bootstrap";
+
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
 import './App.css';
 
+import NavigationBar from "./component/NavigationBar";
+import Welcome from "./component/Welcome";
+import Footer from "./component/Footer";
+import Livre from "./component/Livre";
+import LivreList from "./component/LivreList";
+
+
 function App() {
+
+  const marginTop = {
+
+    marginTop : "20px"
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+
+        <NavigationBar></NavigationBar>
+        <Container>
+          <Row>
+            <Col ls={12} style={marginTop}>
+              <Switch>
+                <Route path="/" exact component={Welcome} ></Route>
+                <Route path="/addBook" exact component={Livre} ></Route>
+                <Route path="/getBook" exact component={LivreList} ></Route>
+              </Switch>
+            </Col>
+          </Row>
+        </Container>
+        <Footer></Footer>
+      </Router>
+
   );
 }
 
