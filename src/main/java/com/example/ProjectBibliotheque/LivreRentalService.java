@@ -33,7 +33,6 @@ public class LivreRentalService {
     @PostMapping("/livres")
     public ResponseEntity<String> addLivre(@RequestBody Livre livre) {
         try {
-
             livreRepository.save(livre);
             jmsTemplate.convertAndSend("Bibliotheque-queue", livre);
             System.out.println(livre);
@@ -77,9 +76,6 @@ public class LivreRentalService {
      }
 
      **/
-
-
-
 
 }
 
