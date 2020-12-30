@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: activemq
+  name: activemq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: activemq
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: activemq
+    spec:
+      containers:
+        - env:
+            - name: ACTIVEMQ_PASSWORD
+              value: admin
+            - name: ACTIVEMQ_USER
+              value: admin
+          image: rmohr/activemq
+          imagePullPolicy: Always
+          name: activemq
+          ports:
+            - containerPort: 61616
+            - containerPort: 8161
+          resources: {}
+      restartPolicy: Always
+status: {}
