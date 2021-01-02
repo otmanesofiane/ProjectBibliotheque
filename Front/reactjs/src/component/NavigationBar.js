@@ -1,26 +1,25 @@
 import React from 'react';
 import * as react from "react";
 import {Navbar,Nav} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
+
+function handleLogout() {
+  this.props.userHasAuthenticated(false);
+}
 
 class NavigationBar extends react.Component {
-
-
+    
     render(){
         return (
-            <Navbar  bg="dark" variant="dark">
-                <Link to={""}  className= "navbar-brand">
-                    <Navbar.Brand href="/">Bibliotheque</Navbar.Brand>
-                </Link>
-                <Nav className="mr-auto">
-                    <Link to={"/getBook"} className="nav-link">Consulter les livres </Link>
-                    <Link to={"/addBook"} className="nav-link">Ajouter des livres</Link>
-                </Nav>
-
+            <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+              <LinkContainer to="/">
+                <Navbar.Brand className="font-weight-bold text-muted">
+                  Scratch
+                </Navbar.Brand>
+              </LinkContainer>
+              <Navbar.Toggle />
             </Navbar>
-
-
         )
     }
 }

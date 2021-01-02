@@ -1,43 +1,66 @@
-import React from 'react';
-import {Container, Row, Col} from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
+import { AppContext } from "./libs/contextLib";
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {Navbar,Nav} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 import './App.css';
 
-import NavigationBar from "./component/NavigationBar";
-import Welcome from "./component/Welcome";
-import Footer from "./component/Footer";
-import Livre from "./component/Livre";
-import LivreList from "./component/LivreList";
-
+import Routes from "./Routes"
 
 function App() {
 
-  const marginTop = {
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
 
-    marginTop : "20px"
-  };
+  useEffect(() => {
+    onLoad();
+  }, []);
+  
+  async function onLoad() {
+      if(localStorage.getItem('user')){
+        userHasAuthenticated(true);
+      }
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('user');
+    userHasAuthenticated(false);
+  }
 
   return (
+      <div className="App container py-3">
       <Router>
-
-        <NavigationBar></NavigationBar>
-        <Container>
-          <Row>
-            <Col ls={12} style={marginTop}>
-              <Switch>
-                <Route path="/" exact component={Welcome} ></Route>
-                <Route path="/addBook" exact component={Livre} ></Route>
-                <Route path="/getBook" exact component={LivreList} ></Route>
-              </Switch>
-            </Col>
-          </Row>
-        </Container>
-        <Footer></Footer>
+      <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+              <LinkContainer to="/">
+                <Navbar.Brand className="font-weight-bold text-muted">
+                  Bibliothèque
+                </Navbar.Brand>
+              </LinkContainer>
+              <Navbar.Toggle />
+              <Navbar.Collapse className="justify-content-end">
+                <Nav activeKey={window.location.pathname}>
+                {isAuthenticated ? (
+                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                ) : (
+                  <>
+                    <LinkContainer to="/signup">
+                      <Nav.Link>Signup</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/login">
+                      <Nav.Link>Login</Nav.Link>
+                    </LinkContainer>
+                  </>
+                )}
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
+        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+          <Routes />
+        </AppContext.Provider>
       </Router>
-
-  );
+      </div>
+    );
 }
 
 export default App;
