@@ -31,6 +31,12 @@ public class LivreRentalService {
         return livreRepository.findAll();
     }
 
+    @GetMapping("/hello")
+    public String hello(){
+       return " HelloWorld";
+    }
+    
+
     @PostMapping("/livres")
     public ResponseEntity<String> addLivre(@RequestBody Livre livre) {
         try {
