@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import LoaderButton from "../LoaderButton/LoaderButton";
 import "./LoginForm.css";
@@ -8,7 +7,6 @@ import { useFormFields } from "../../libs/hooksLib";
 
 export default function Login() {
 
-    const history = useHistory();
     const [isLoading, setIsLoading] = useState(false);
     const { userHasAuthenticated } = useAppContext();
     const [fields, handleFieldChange] = useFormFields({
@@ -20,19 +18,24 @@ export default function Login() {
         return fields.email.length > 0 && fields.password.length > 0;
     }
 
-    function saveStateToLocalStorage () {
-      localStorage.setItem('user', 'true')
+    function saveStateToLocalStorage (user) {
+      localStorage.setItem('user', JSON.stringify(user))
     }
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        const user = {
+          email: fields.email,
+          password: fields.password
+        };
+
         setIsLoading(true);
         try {
-          if(fields.email == "admin@admin" & fields.password == "admin"){
+          if(user.email == "admin@admin" & user.password == "admin"){
             alert("logged")
-            saveStateToLocalStorage()
+            saveStateToLocalStorage(user)
             userHasAuthenticated(true);
-            history.push("/");
           } else {
             alert("Logged fail")
             setIsLoading(false);
@@ -44,6 +47,7 @@ export default function Login() {
     }
 
     return (
+      
         <div className="Login">
           <Form onSubmit={handleSubmit}>
             <Form.Group size="lg" controlId="email">
@@ -72,6 +76,8 @@ export default function Login() {
                 Login
             </LoaderButton>
           </Form>
+          <span>admin@admin | admin</span>
         </div>
+        
     );
 }

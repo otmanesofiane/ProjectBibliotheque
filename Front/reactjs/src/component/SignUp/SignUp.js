@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import LoaderButton from "../LoaderButton/LoaderButton";
@@ -14,7 +15,6 @@ export default function Signup() {
     confirmPassword: "",
   });
   const history = useHistory();
-  const [newUser, setNewUser] = useState(null);
   const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,24 +26,30 @@ export default function Signup() {
     );
   }
 
-  function validateConfirmationForm() {
-    return fields.confirmationCode.length > 0;
+  function saveStateToLocalStorage (user) {
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    setIsLoading(true);
+    const user = {
+      email: fields.email,
+      password: fields.password
+    };
 
-    setNewUser("test");
+    axios.post(`http://localhost:8080/register`, user)
+        .then(res => {
+            setIsLoading(true);
+            saveStateToLocalStorage(user)
+            userHasAuthenticated(true);
+            history.push("/");
+        })
+        .catch(e => {
+            alert(e);
+            setIsLoading(false);
+        })
 
-    setIsLoading(false);
-  }
-
-  async function handleConfirmationSubmit(event) {
-    event.preventDefault();
-
-    setIsLoading(true);
   }
 
   function renderForm() {

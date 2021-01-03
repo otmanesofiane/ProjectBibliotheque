@@ -2,7 +2,7 @@ import * as react from "react";
 import {Card, Table} from "react-bootstrap";
 import axios from "axios";
 
-class  LivreList extends react.Component {
+class  BooksList extends react.Component {
 
     constructor(props) {
         super(props);
@@ -25,11 +25,11 @@ class  LivreList extends react.Component {
     }
     render() {
         return (
-            <Card className={"border border-dark bg-dark text-white"}>
+            <Card>
 
                 <Card.Header>Liste des livres </Card.Header>
                 <Card.Body>
-                    <Table bordered hover striped variant={"dark"}>
+                    <Table bordered hover striped>
 
                         <thead>
                         <tr>
@@ -52,8 +52,6 @@ class  LivreList extends react.Component {
                             ))
 
                         }
-
-
                         </tbody>
                     </Table>
 
@@ -68,4 +66,4 @@ class  LivreList extends react.Component {
 
 }
 
-export default LivreList;
+export default BooksList;

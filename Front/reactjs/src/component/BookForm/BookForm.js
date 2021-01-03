@@ -21,7 +21,7 @@ class Livre extends react.Component {
     }
     render() {
         return (
-            <Card className={"border border-dark bg-dark text-white"}>
+            <Card>
                 <Card.Header>Ajout de livre </Card.Header>
                 <Card.Body>
                     <Form  onSubmit={this.submitBook} id={"BookIdForm"}>
