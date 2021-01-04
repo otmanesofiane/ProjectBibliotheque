@@ -1,5 +1,7 @@
 package com.example.ProjectBibliotheque;
 
+import com.example.ProjectBibliotheque.model.Person;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,13 +11,13 @@ public class Rent {
     public String debutLocation;
     public String finLocation;
     private Livre livre;
-    private Personne personne;
+    private Person personne;
 
     public Rent() {
 
     }
 
-    public Rent(String debutLocation, String finLocation, Livre livre, Personne personne) {
+    public Rent(String debutLocation, String finLocation, Livre livre, Person personne) {
 
         this.debutLocation = debutLocation;
         this.finLocation = finLocation;
@@ -34,7 +36,7 @@ public class Rent {
         return livre;
     }
     @ManyToOne
-    public Personne getPersonne() {
+    public Person getPersonne() {
         return personne;
     }
 
@@ -77,7 +79,7 @@ public class Rent {
     }
 
 
-    public void setPersonne(Personne personne) {
+    public void setPersonne(Person personne) {
         this.personne = personne;
     }
 }
