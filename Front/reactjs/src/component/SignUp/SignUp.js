@@ -1,66 +1,70 @@
 import React, { useState } from "react";
-import axios from 'axios';
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import LoaderButton from "../LoaderButton/LoaderButton";
 import { useAppContext } from "../../libs/contextLib";
 import { useFormFields } from "../../libs/hooksLib";
+
+import AuthService from "../../service/auth.service";
+
 //import { onError } from "../libs/errorLib";
 import "./SignUp.css";
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
-    email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
   const history = useHistory();
-  const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
     return (
-      fields.email.length > 0 &&
+      fields.username.length > 0 &&
       fields.password.length > 0 &&
       fields.password === fields.confirmPassword
     );
-  }
-
-  function saveStateToLocalStorage (user) {
-    localStorage.setItem('user', JSON.stringify(user))
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const user = {
-      email: fields.email,
+      username: fields.username,
       password: fields.password
     };
 
-    axios.post(`http://localhost:8080/register`, user)
-        .then(res => {
-            setIsLoading(true);
-            saveStateToLocalStorage(user)
-            userHasAuthenticated(true);
-            history.push("/");
-        })
-        .catch(e => {
-            alert(e);
-            setIsLoading(false);
-        })
-
+    AuthService.register(
+      user.username,
+      user.password
+    ).then(
+      response => {
+        console.log(response)
+        setIsLoading(true);
+        history.push("/");
+      }, 
+      error => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+          alert(resMessage)
+      }
+    );
   }
 
   function renderForm() {
     return (
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="email" size="lg">
-          <Form.Label>Email</Form.Label>
+        <Form.Group controlId="username" size="lg">
+          <Form.Label>username</Form.Label>
           <Form.Control
             autoFocus
-            type="email"
-            value={fields.email}
+            type="text"
+            value={fields.username}
             onChange={handleFieldChange}
           />
         </Form.Group>

@@ -20,7 +20,7 @@ function App() {
   }, []);
   
   async function onLoad() {
-      if(localStorage.getItem('user')){
+      if(localStorage.getItem('token')){
         userHasAuthenticated(true);
       }
   }
@@ -34,7 +34,7 @@ function App() {
       <div className="App container py-3">
       <Router>
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
-              <LinkContainer to="/home">
+              <LinkContainer to="/">
                 <Navbar.Brand className="font-weight-bold text-muted">
                   Bibliothèque
                 </Navbar.Brand>

@@ -1,61 +1,67 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import LoaderButton from "../LoaderButton/LoaderButton";
 import "./LoginForm.css";
 import { useAppContext } from "../../libs/contextLib";
 import { useFormFields } from "../../libs/hooksLib";
 
+import AuthService from "../../service/auth.service";
+
 export default function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
     const { userHasAuthenticated } = useAppContext();
     const [fields, handleFieldChange] = useFormFields({
-      email: "",
+      username: "",
       password: ""
     });
+    const history = useHistory();
 
     function validateForm() {
-        return fields.email.length > 0 && fields.password.length > 0;
-    }
-
-    function saveStateToLocalStorage (user) {
-      localStorage.setItem('user', JSON.stringify(user))
+        return fields.username.length > 0 && fields.password.length > 0;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
 
         const user = {
-          email: fields.email,
+          username: fields.username,
           password: fields.password
         };
 
         setIsLoading(true);
-        try {
-          if(user.email == "admin@admin" & user.password == "admin"){
+
+        AuthService.login(user.username, user.password).then(
+          () => {
             alert("logged")
-            saveStateToLocalStorage(user)
+            history.push("/");
             userHasAuthenticated(true);
-          } else {
-            alert("Logged fail")
-            setIsLoading(false);
+          },
+          error => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+              alert(resMessage);
+              setIsLoading(false);
           }
-        } catch (e) {
-          alert(e.message);
-          setIsLoading(false);
-        }
+        );
     }
 
     return (
       
         <div className="Login">
           <Form onSubmit={handleSubmit}>
-            <Form.Group size="lg" controlId="email">
-              <Form.Label>Email</Form.Label>
+            <Form.Group size="lg" controlId="username">
+              <Form.Label>username</Form.Label>
               <Form.Control
                 autoFocus
-                type="email"
-                value={fields.email}
+                type="text"
+                value={fields.username}
                 onChange= {handleFieldChange}
               />
             </Form.Group>
