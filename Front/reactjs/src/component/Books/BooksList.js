@@ -2,6 +2,7 @@ import * as react from "react";
 import {Card, Table} from "react-bootstrap";
 import axios from "axios";
 
+
 class  BooksList extends react.Component {
 
     constructor(props) {
@@ -10,19 +11,26 @@ class  BooksList extends react.Component {
             books :[]
         };
     }
+/*
     componentDidMount() {
-        axios.get("http://localhost:8080/livres",{
-            headers: {"Access-Control-Allow-Origin": "*"}
-
-        })
+        axios.get("https://jsonplaceholder.typicode.com/posts")
             .then(response => response.data)
             .then((data) =>{
                 this.setState({books:data});
             })
+    }*/
 
-
-
+    componentDidMount() {
+        axios.get("https://biblio-project.ncharfi.com/livres")
+            .then(response => {
+                console.log(response.data)
+                this.setState({books:response.data})
+            })
+            .catch(error =>{
+                console.log(error)
+            })
     }
+
     render() {
         return (
             <Card>

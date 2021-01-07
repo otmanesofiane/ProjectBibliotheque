@@ -5,7 +5,7 @@ const API_URL = "https://biblio-project.ncharfi.com";
 class AuthService {
   login(username, password) {
     return axios
-      .post(API_URL + "login", {
+      .post(API_URL + "/login", {
         username,
         password
       })
@@ -19,7 +19,7 @@ class AuthService {
   }
 
   register(username, password) {
-    return axios.post(API_URL + "register", {
+    return axios.post(API_URL + "/register", {
       username,
       password
     });
