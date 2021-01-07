@@ -9,6 +9,7 @@ public interface LivreRepository extends CrudRepository<Livre, String> {
     @Override
     List<Livre> findAll();
     long count();
-    Livre save(Livre car);
+    Livre save(Livre livre);
+    Livre removeLivreBy(Livre livre);
 
 }

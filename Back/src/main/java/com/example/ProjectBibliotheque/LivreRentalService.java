@@ -32,7 +32,12 @@ public class LivreRentalService {
 
     @GetMapping("/")
     public String hello(){
-       return " HelloWorld From Paris 2";
+       return " HelloWorld From Paris 3";
+    }
+
+    @DeleteMapping("/livres")
+    public Livre removeBook(@RequestBody Livre livre){
+        return livreRepository.removeLivreBy(livre);
     }
     
 
