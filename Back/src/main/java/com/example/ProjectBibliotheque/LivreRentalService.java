@@ -14,7 +14,6 @@ import java.util.List;
 public class LivreRentalService {
 
 
-
     // private List<Car> cars = new ArrayList<Car>();
 
     @Autowired
@@ -31,9 +30,9 @@ public class LivreRentalService {
         return livreRepository.findAll();
     }
 
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String hello(){
-       return " HelloWorld";
+       return " HelloWorld From Paris 2";
     }
     
 

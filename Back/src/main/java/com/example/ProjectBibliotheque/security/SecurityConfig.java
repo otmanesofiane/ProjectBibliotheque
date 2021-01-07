@@ -40,10 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login/**").permitAll()
                 .antMatchers("/register/**").permitAll();
 
+
         http.authorizeRequests()
                 // ROOM
                 .antMatchers(HttpMethod.GET, "/livres/**").permitAll()
-                .antMatchers("/livres/**").hasAuthority("ADMIN")
+                .antMatchers("/livres/**").permitAll()
+               // .antMatchers("/livres/**").hasAuthority("ADMIN")
                 // USER
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
                 //RESERVATION
