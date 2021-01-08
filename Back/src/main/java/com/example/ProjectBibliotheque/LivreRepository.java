@@ -10,6 +10,6 @@ public interface LivreRepository extends CrudRepository<Livre, String> {
     List<Livre> findAll();
     long count();
     Livre save(Livre livre);
-    Livre removeLivreBy(Livre livre);
+    void delete(Livre livre);
 
 }

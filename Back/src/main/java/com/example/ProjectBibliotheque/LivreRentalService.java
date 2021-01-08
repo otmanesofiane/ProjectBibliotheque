@@ -36,8 +36,8 @@ public class LivreRentalService {
     }
 
     @DeleteMapping("/livres")
-    public Livre removeBook(@RequestBody Livre livre){
-        return livreRepository.removeLivreBy(livre);
+    public void removeBook(@RequestBody Livre livre){
+            livreRepository.delete(livre);
     }
     
 
