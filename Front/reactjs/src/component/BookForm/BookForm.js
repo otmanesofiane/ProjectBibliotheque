@@ -1,52 +1,119 @@
-import * as react from "react";
-import {Card,Form,Button} from "react-bootstrap";
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import { useHistory } from "react-router-dom";
+import LoaderButton from "../LoaderButton/LoaderButton";
+import { useAppContext } from "../../libs/contextLib";
+import { useFormFields } from "../../libs/hooksLib";
 
-class Livre extends react.Component {
+import BookService from "../../service/book.service";
 
-    constructor(props) {
-        super(props);
-        this.state = {titre :"" , prix:""};
-        this.bookChange = this.bookChange.bind(this);
-        this.submitBook = this.submitBook.bind(this);
-    }
+//import { onError } from "../libs/errorLib";
+import "./BookForm.css";
 
-    submitBook (event) {
-        alert(this.state.titre);
-        event.preventDefault();
-    }
-    bookChange(event){
-        this.setState({
-            [event.target.name]:event.target.name
-        })
-    }
-    render() {
-        return (
-            <Card>
-                <Card.Header>Ajout de livre </Card.Header>
-                <Card.Body>
-                    <Form  onSubmit={this.submitBook} id={"BookIdForm"}>
-                        <Form.Group controlId="formBasicTitre">
-                            <Form.Label>Titre</Form.Label>
-                            <Form.Control required
-                                          name="titre"
-                                          type="text"
-                                          placeholder="Entrez le titre du livre"
-                                          value={this.state.titre}
-                                          onChange={this.bookChange}
-                            />
-                        </Form.Group>
+export default function BookForm() {
 
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
+const [isLoading, setIsLoading] = useState(false);
+
+  const [fields, handleFieldChange] = useFormFields({
+    titre: "",
+    desc: "",
+    auteur: "",
+    price: ""
+  });
+
+  function validateForm() {
+    return (
+      fields.titre.length > 0 &&
+      fields.auteur.length > 0 &&
+      fields.price.length > 0 
+    );
+  }
+
+async function handleSubmit(event) {
+    event.preventDefault();
+
+    const book = {
+        titre: fields.titre,
+        desc: fields.desc,
+        auteur: fields.auteur,
+        price: fields.price
+    };
+
+    console.log(book)
+
+    BookService.addBook(book)
+        .then(
+            response => {
+                console.log(response)
+                setIsLoading(true);
+            }, 
+            error => {
+                const resMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+                alert(resMessage)
+            }
         );
-    }
+  }
 
+  function renderForm() {
+    return (
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="titre" size="lg">
+          <Form.Label>Titre</Form.Label>
+          <Form.Control
+            autoFocus
+            type="text"
+            value={fields.titre}
+            onChange={handleFieldChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="auteur" size="lg">
+          <Form.Label>Auteur</Form.Label>
+          <Form.Control
+            type="auteur"
+            value={fields.auteur}
+            onChange={handleFieldChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="desc" size="lg">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea" 
+            rows={2}
+            type="text"
+            onChange={handleFieldChange}
+            value={fields.desc}
+          />
+        </Form.Group>
+        <Form.Group controlId="price" size="lg">
+          <Form.Label>Prix (€)</Form.Label>
+          <Form.Control
+            type="number"
+            onChange={handleFieldChange}
+            value={fields.price}
+          />
+        </Form.Group> 
+        <LoaderButton
+          block
+          size="lg"
+          type="submit"
+          variant="success"
+          isLoading={isLoading}
+          disabled={!validateForm()}
+        >
+          Ajouter
+        </LoaderButton>
+      </Form>
+    );
+  }
 
-
+  return (
+    <div className="BookForm">
+      {renderForm()}
+    </div>
+  );
 }
-
-export default Livre;

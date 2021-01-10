@@ -1,77 +1,44 @@
-import * as react from "react";
-import {Card, Table} from "react-bootstrap";
-import axios from "axios";
+import React, { Component } from 'react';
+import {AgGridReact} from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
+import BookService from "../../service/book.service";
 
-class  BooksList extends react.Component {
+import "./BooksList.css";
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            books :[]
-        };
+class BookList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      columnDefs: [
+        {headerName: 'Id', field: 'id', width: 60, sortable: true, filter: true},
+        {headerName: 'Titre', field: 'titre', width: 200,sortable: true, filter: true},
+        {headerName: 'Auteur', field: 'auteur', width: 200 ,sortable: true, filter: true},
+        {headerName: 'Description', field: 'desc', width: 400,sortable: true, filter: true},
+        {headerName: 'Prix €', field: 'price', sortable: true, filter: true}
+      ],
+      rowData: null
     }
-/*
-    componentDidMount() {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
-            .then(response => response.data)
-            .then((data) =>{
-                this.setState({books:data});
-            })
-    }*/
+  }
 
-    componentDidMount() {
-        axios.get("https://biblio-project.ncharfi.com/livres")
-            .then(response => {
-                console.log(response.data)
-                this.setState({books:response.data})
-            })
-            .catch(error =>{
-                console.log(error)
-            })
+    componentDidMount(){
+        BookService.books()
+            .then(result => result.json())
+            .then(rowData => this.setState({rowData}))
+            .catch(err => console.log(err))
     }
 
-    render() {
-        return (
-            <Card>
-
-                <Card.Header>Liste des livres </Card.Header>
-                <Card.Body>
-                    <Table bordered hover striped>
-
-                        <thead>
-                        <tr>
-                            <th>Identifiant</th>
-                            <th>Titre</th>
-                            <th>Prix</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.books.length === 0 ?
-                            <tr>
-                                <td className={"text-center"} colSpan="6">Aucun livre de disponible</td>
-                            </tr> :
-                            this.state.books.map((book) =>(
-                                <tr key = {book.id}>
-                                    <td>{book.id}</td>
-                                    <td>{book.titre}</td>
-                                    <td>{book.price}</td>
-                                </tr>
-                            ))
-
-                        }
-                        </tbody>
-                    </Table>
-
-                </Card.Body>
-
-            </Card>
-
-        );
-    }
-
-
-
+  render() {
+    return (
+        <div className="ag-theme-balham marge" style={{ height: 400, width: 1000 }}>
+            <AgGridReact
+                columnDefs={this.state.columnDefs}
+                rowData={this.state.rowData}
+            />
+        </div>
+    );
+  }
 }
 
-export default BooksList;
+export default BookList;

@@ -13,6 +13,8 @@ public class Livre implements Serializable {
 
     private long id;
     public String titre;
+    public String desc;
+    public String auteur;
     private int price;
     //  private Dates dates;
     //  private boolean rented;
@@ -22,10 +24,12 @@ public class Livre implements Serializable {
         super();
     }
 
-    public Livre(String titre, int price) {
+    public Livre(String titre, String desc, String auteur ,int price) {
         super();
         this.titre = titre;
         this.price = price;
+        this.auteur = auteur;
+        this.desc = desc;
         //  this.dates=dates;
         //  this.rented=rented;
     }
@@ -43,8 +47,6 @@ public class Livre implements Serializable {
     public void setRents(List<Rent> rents) {
         this.rents = rents;
     }
-
-
 
     public void setId(long id) {
         this.id = id;
@@ -65,6 +67,23 @@ public class Livre implements Serializable {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
     /**
      public Dates getDates() {
      return dates;
@@ -82,14 +101,16 @@ public class Livre implements Serializable {
      this.rented = rented;
      }
      **/
+
     @Override
     public String toString() {
         return "Livre{" +
-                "id='" + id + '\'' +
+                "rents=" + rents +
+                ", id=" + id +
                 ", titre='" + titre + '\'' +
+                ", desc='" + desc + '\'' +
+                ", auteur='" + auteur + '\'' +
                 ", price=" + price +
-                //    ", dates=" + dates +
-                //    ", rented=" + rented +
                 '}';
     }
 }
