@@ -25,23 +25,18 @@ public class LivreRentalService {
     @Autowired
     public LivreRentalService(LivreRepository livreRepository) { this.livreRepository = livreRepository;}
 
-    @GetMapping("/livres")
+    @GetMapping("/books")
     public List<Livre> getListeOfBook(){
         return livreRepository.findAll();
     }
-
-    @GetMapping("/")
-    public String hello(){
-       return " HelloWorld From Paris 3";
-    }
-
+    
     @DeleteMapping("/livres")
     public void removeBook(@RequestBody Livre livre){
             livreRepository.delete(livre);
     }
     
 
-    @PostMapping("/livres")
+    @PostMapping("/book")
     public ResponseEntity<String> addLivre(@RequestBody Livre livre) {
         try {
             livreRepository.save(livre);
