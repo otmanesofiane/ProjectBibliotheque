@@ -5,13 +5,12 @@ metadata:
   annotations:
      kubernetes.io/ingress.allow-http: "false"
      networking.gke.io/managed-certificates: cert-biblio
-     kubernetes.io/ingress.global-static-ip-name: biblio-static-ip
 spec:
   rules:
-    - host: biblio-project.ncharfi.com
+    - host: biblio-project.mohzaar.fr
     - http:
         paths:
-        - path: /*
+        - path: /
           backend:
             serviceName: web
             servicePort: 8080
