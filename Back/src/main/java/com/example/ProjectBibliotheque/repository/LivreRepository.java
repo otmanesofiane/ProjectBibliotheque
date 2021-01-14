@@ -1,5 +1,6 @@
 package com.example.ProjectBibliotheque;
 
+import com.example.ProjectBibliotheque.model.Livre;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

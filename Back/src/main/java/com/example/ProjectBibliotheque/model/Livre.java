@@ -1,5 +1,7 @@
 package com.example.ProjectBibliotheque;
 
+import com.example.ProjectBibliotheque.model.Rent;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class Livre implements Serializable {
     public long getId() {
         return id;
     }
+
     @OneToMany(mappedBy="livre", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     public List<Rent> getRents() {
         return rents;
@@ -83,24 +86,6 @@ public class Livre implements Serializable {
     public void setAuteur(String auteur) {
         this.auteur = auteur;
     }
-
-    /**
-     public Dates getDates() {
-     return dates;
-     }
-
-     public void setDates(Dates dates) {
-     this.dates = dates;
-     }
-
-     public boolean isRented() {
-     return rented;
-     }
-
-     public void setRented(boolean rented) {
-     this.rented = rented;
-     }
-     **/
 
     @Override
     public String toString() {
