@@ -20,7 +20,7 @@ function App() {
   }, []);
   
   async function onLoad() {
-      if(localStorage.getItem('token')){
+      if(localStorage.getItem('user')){
         userHasAuthenticated(true);
       }
   }

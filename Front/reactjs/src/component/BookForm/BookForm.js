@@ -12,6 +12,7 @@ import "./BookForm.css";
 
 export default function BookForm() {
 
+const history = useHistory();
 const [isLoading, setIsLoading] = useState(false);
 
   const [fields, handleFieldChange] = useFormFields({
@@ -39,13 +40,11 @@ async function handleSubmit(event) {
         price: fields.price
     };
 
-    console.log(book)
-
     BookService.addBook(book)
         .then(
             response => {
-                console.log(response)
-                setIsLoading(true);
+              setIsLoading(true);
+              history.push("/books");
             }, 
             error => {
                 const resMessage =

@@ -38,18 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/login/**").permitAll()
-                .antMatchers("/register/**").permitAll();
+                .antMatchers("/register/**").permitAll()
+                .antMatchers("/rents/**").permitAll();
 
 
         http.authorizeRequests()
                 // ROOM
-                .antMatchers(HttpMethod.GET, "/livres/**").permitAll()
-                .antMatchers("/livres/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/books/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/book/**").hasAnyAuthority("ADMIN", "USER")
                // .antMatchers("/livres/**").hasAuthority("ADMIN")
                 // USER
-                .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER");
                 //RESERVATION
-                .antMatchers("/rent/**").hasAnyAuthority("ADMIN", "USER");
+                //.antMatchers("/rent/**").hasAnyAuthority("ADMIN", "USER");
 
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));

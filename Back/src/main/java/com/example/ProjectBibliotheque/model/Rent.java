@@ -1,28 +1,26 @@
-package com.example.ProjectBibliotheque;
-
-import com.example.ProjectBibliotheque.model.Person;
+package com.example.ProjectBibliotheque.model;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.zip.DataFormatException;
 
 @Entity
 public class Rent {
 
     private long id;
-    public String debutLocation;
-    public String finLocation;
+    public Date debutLocation;
+    public Date finLocation;
     private Livre livre;
-    private Person personne;
+    private Person person;
 
-    public Rent() {
+    public Rent() { super();}
 
-    }
-
-    public Rent(String debutLocation, String finLocation, Livre livre, Person personne) {
-
+    public Rent(Date debutLocation, Date finLocation, Livre livre, Person person) {
+        super();
         this.debutLocation = debutLocation;
         this.finLocation = finLocation;
         this.livre = livre;
-        this.personne = personne;
+        this.person = person;
 
     }
 
@@ -36,8 +34,8 @@ public class Rent {
         return livre;
     }
     @ManyToOne
-    public Person getPersonne() {
-        return personne;
+    public Person getPerson() {
+        return person;
     }
 
     public void setId(long id) {
@@ -49,19 +47,19 @@ public class Rent {
      }**/
 
 
-    public String getDebutLocation() {
+    public Date getDebutLocation() {
         return debutLocation;
     }
 
-    public void setDebutLocation(String debutLocation) {
+    public void setDebutLocation(Date debutLocation) {
         this.debutLocation = debutLocation;
     }
 
-    public String getFinLocation() {
+    public Date getFinLocation() {
         return finLocation;
     }
 
-    public void setFinLocation(String finLocation) {
+    public void setFinLocation(Date finLocation) {
         this.finLocation = finLocation;
     }
 
@@ -79,7 +77,7 @@ public class Rent {
     }
 
 
-    public void setPersonne(Person personne) {
-        this.personne = personne;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

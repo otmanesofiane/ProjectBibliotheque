@@ -1,6 +1,7 @@
-package com.example.ProjectBibliotheque;
+package com.example.ProjectBibliotheque.model;
 
 import com.example.ProjectBibliotheque.model.Rent;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,17 +10,18 @@ import java.util.List;
 
 @Entity
 public class Livre implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private List<Rent> rents = new ArrayList<Rent>();
 
+    @Id
     private long id;
     public String titre;
     public String desc;
     public String auteur;
     private int price;
-    //  private Dates dates;
-    //  private boolean rented;
+    public Boolean isRented = false;
 
 
     public Livre() {
@@ -32,8 +34,7 @@ public class Livre implements Serializable {
         this.price = price;
         this.auteur = auteur;
         this.desc = desc;
-        //  this.dates=dates;
-        //  this.rented=rented;
+
     }
 
     @Id
@@ -42,6 +43,7 @@ public class Livre implements Serializable {
         return id;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy="livre", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     public List<Rent> getRents() {
         return rents;
@@ -87,10 +89,17 @@ public class Livre implements Serializable {
         this.auteur = auteur;
     }
 
+    public Boolean getRented() {
+        return isRented;
+    }
+
+    public void setRented(Boolean rented) {
+        isRented = rented;
+    }
+
     @Override
     public String toString() {
         return "Livre{" +
-                "rents=" + rents +
                 ", id=" + id +
                 ", titre='" + titre + '\'' +
                 ", desc='" + desc + '\'' +

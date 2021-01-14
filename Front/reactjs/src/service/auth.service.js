@@ -10,9 +10,14 @@ class AuthService {
         password
       })
       .then(response => {
-          console.log(response)
+
         if (response.headers.authorization) {
-          localStorage.setItem("token", JSON.stringify(response.headers.authorization).substr(8,response.headers.authorization.size));
+          const tokenSize = response.headers.authorization.length
+          const user = {
+            "username" : username,
+            "token" : (response.headers.authorization).substr(7,tokenSize)
+          };
+          localStorage.setItem("user", JSON.stringify(user));
         }
         return response.data;
       });

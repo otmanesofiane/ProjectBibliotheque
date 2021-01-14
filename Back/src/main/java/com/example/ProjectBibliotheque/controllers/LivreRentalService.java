@@ -1,6 +1,8 @@
-package com.example.ProjectBibliotheque;
+package com.example.ProjectBibliotheque.controllers;
 
 
+import com.example.ProjectBibliotheque.repository.LivreRepository;
+import com.example.ProjectBibliotheque.model.Livre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class LivreRentalService {
         return livreRepository.findAll();
     }
     
-    @DeleteMapping("/livres")
+    @DeleteMapping("/book")
     public void removeBook(@RequestBody Livre livre){
             livreRepository.delete(livre);
     }
@@ -40,7 +42,7 @@ public class LivreRentalService {
     public ResponseEntity<String> addLivre(@RequestBody Livre livre) {
         try {
             livreRepository.save(livre);
-            jmsTemplate.convertAndSend("Bibliotheque-queue", livre);
+          jmsTemplate.convertAndSend("Bibliotheque-queue", livre);
             System.out.println(livre);
             System.out.println(livre.toString() + "envoyez dans la file Mq"+ ":" + " " + livreRepository.count());
 

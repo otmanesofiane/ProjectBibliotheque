@@ -40,7 +40,6 @@ export default function Signup() {
       user.password
     ).then(
       response => {
-        console.log(response)
         setIsLoading(true);
         history.push("/");
       }, 

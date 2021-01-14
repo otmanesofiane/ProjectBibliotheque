@@ -82,7 +82,6 @@ export default function Login() {
                 Login
             </LoaderButton>
           </Form>
-          <span>admin@admin | admin</span>
         </div>
         
     );

@@ -1,16 +1,15 @@
-package com.example.ProjectBibliotheque;
+package com.example.ProjectBibliotheque.repository;
 
 import com.example.ProjectBibliotheque.model.Livre;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface LivreRepository extends CrudRepository<Livre, String> {
+public interface LivreRepository extends JpaRepository<Livre, Long> {
 
-    @Override
     List<Livre> findAll();
+    //Livre findById(int LivreId);
     long count();
-    Livre save(Livre livre);
     void delete(Livre livre);
 
 }
