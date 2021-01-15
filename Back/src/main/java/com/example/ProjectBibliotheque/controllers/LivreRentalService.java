@@ -27,6 +27,11 @@ public class LivreRentalService {
     @Autowired
     public LivreRentalService(LivreRepository livreRepository) { this.livreRepository = livreRepository;}
 
+    @GetMapping("/")
+    public String hello(){
+        return "HelloWorld final 5";
+    }
+
     @GetMapping("/books")
     public List<Livre> getListeOfBook(){
         return livreRepository.findAll();
