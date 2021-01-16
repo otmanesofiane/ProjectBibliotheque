@@ -8,7 +8,6 @@ import java.util.List;
 public interface LivreRepository extends JpaRepository<Livre, Long> {
 
     List<Livre> findAll();
-    //Livre findById(int LivreId);
     long count();
     void delete(Livre livre);
 

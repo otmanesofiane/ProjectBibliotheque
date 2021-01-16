@@ -8,10 +8,7 @@ import java.util.List;
 
 public interface RentsRepository extends JpaRepository<Rent, Long> {
     List<Rent> findAll();
-    //Reservation findById(int reservationId);
     List<Rent> findByPerson(Person person);
-
     Rent save(Rent reservation);
 
-    // List<Reservation> findByRoom(Room room);
 }

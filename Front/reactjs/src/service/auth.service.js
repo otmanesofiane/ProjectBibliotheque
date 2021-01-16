@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://biblio-project.mohzaar.fr"//"https://biblio-project.mohzaar.fr";
+const API_URL = "http://localhost:8080"//"https://biblio-project.mohzaar.fr";
 
 class AuthService {
   login(username, password) {

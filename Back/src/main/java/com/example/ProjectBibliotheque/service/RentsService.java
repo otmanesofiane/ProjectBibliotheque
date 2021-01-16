@@ -10,7 +10,6 @@ import com.example.ProjectBibliotheque.repository.RentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -59,20 +58,5 @@ public class RentsService {
         livre.setRented(true);
         return rentsRepository.save(reservationAdd);
     }
-
-
-   /* public Reservation updateReservation (@PathVariable(name="id") Long id,@RequestBody DateDTO dates) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date beginRent = dateFormat.parse(dates.getBeginRent());
-        Date endRent = dateFormat.parse(dates.getEndRent());
-        Reservation reservation =  this.getReservation(id);
-        reservation.setBeginRent(beginRent);
-        reservation.setEndRent(endRent);
-        return reservationRepository.save(reservation);
-    }*/
-
-    /*public void deleteRoom (@PathVariable(name="id") Long id){
-        reservationRepository.deleteById(id);
-    } */
 
 }

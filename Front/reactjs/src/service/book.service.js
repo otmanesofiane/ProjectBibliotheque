@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from './auth-header';
 
-const API_URL = "https://biblio-project.mohzaar.fr" //"https://biblio-project.mohzaar.fr";
+const API_URL = "http://localhost:8080" //"https://biblio-project.mohzaar.fr";
 
 class BookService {
   books() {

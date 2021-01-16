@@ -11,15 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUser", scope = Long.class)
+
 public class Person {
     @Id
     private long idUser;
     @Column(unique=true)
     private String username;
     private String password;
-
-    //private boolean isAdmin;
     private Role role;
 
 
@@ -32,8 +30,6 @@ public class Person {
         super();
         this.username = username;
         this.password = password;
-
-        //this.isAdmin = isAdmin;
         this.role=role;
     }
 
@@ -46,17 +42,6 @@ public class Person {
     public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
-
-
-
-    /*public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }*/
-
 
     public String getUsername() {
         return username;

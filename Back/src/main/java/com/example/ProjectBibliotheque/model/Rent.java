@@ -2,7 +2,6 @@ package com.example.ProjectBibliotheque.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.zip.DataFormatException;
 
 @Entity
 public class Rent {
@@ -41,11 +40,6 @@ public class Rent {
     public void setId(long id) {
         this.id = id;
     }
-    /**
-     public Dates getDebutLocation() {
-     return debutLocation;
-     }**/
-
 
     public Date getDebutLocation() {
         return debutLocation;
@@ -62,15 +56,6 @@ public class Rent {
     public void setFinLocation(Date finLocation) {
         this.finLocation = finLocation;
     }
-
-    /**
-     public Dates getFinLocation() {
-     return finLocation;
-     }**/
-
-
-
-
 
     public void setLivre(Livre livre) {
         this.livre = livre;

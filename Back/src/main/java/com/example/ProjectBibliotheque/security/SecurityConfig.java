@@ -46,11 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // ROOM
                 .antMatchers(HttpMethod.GET, "/books/**").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/book/**").hasAnyAuthority("ADMIN", "USER")
-               // .antMatchers("/livres/**").hasAuthority("ADMIN")
                 // USER
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER");
-                //RESERVATION
-                //.antMatchers("/rent/**").hasAnyAuthority("ADMIN", "USER");
+
 
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));

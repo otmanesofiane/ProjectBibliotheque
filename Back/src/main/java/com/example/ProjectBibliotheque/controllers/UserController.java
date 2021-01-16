@@ -26,18 +26,6 @@ public class UserController {
     }
 
 
-
-        /*@PostMapping("/user")
-        public Person createPerson(@RequestBody String firstName, String lastName, String username, String password,String phone, String mail) {
-                return personService.createPerson( firstName,  lastName,  username,  password, phone,  mail);
-        }*/
-        /* bon
-        @PostMapping("/user")
-        public Person createPerson(@RequestBody Person person) {
-                return personService.createPerson( person.getFirstName() ,  person.getLastName(), person.getUsername(),person.getPassword(),person.getPhone(), person.getMail());
-        }*/
-    //############################# READ #############################//
-
     // ALL USER WITH USER_ROLE
     @GetMapping("/user")
     public List<Person> getAllClient() {
@@ -55,30 +43,5 @@ public class UserController {
     public Person getByUserName(@PathVariable(value = "username") String username) {
         return personService.getByUsername(username);
     }
-
-    // GET CURRENT USER
-  /*      @GetMapping("/person/current_user")
-        public Person getCurrentUser() {
-            return userService.getCurrentUser();
-        }
-*/
-
-
-  /**
-
-    //############################ UPDATE ############################//
-    @PutMapping("/user/{id}")
-    public Person update(@PathVariable(value = "id") long id, @RequestBody Person person) {
-        return personService.updateUser(id, person);
-    }
-
-
-
-    //############################ DELETE ############################//
-    @DeleteMapping("/user/{id}")
-    public void delete(@PathVariable(value = "id") long id) {
-        personService.deleteUser(id);
-    }
-   **/
 
 }

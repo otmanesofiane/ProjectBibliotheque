@@ -8,5 +8,4 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findAll();
     Person findByUsername(String username);
-    //List<Person> findByAdminIsTrue();
 }

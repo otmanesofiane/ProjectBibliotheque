@@ -78,32 +78,4 @@ public class PersonService {
         Role role=this.roleRepository.findByRole(roleName);
         person.setRole(role);
     }
-/*
-    public Person getCurrentUser(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Person person = this.getByUsername(auth.getName());
-        return person;
-    }
-*/
-
-/**
-    // UPDATE
-    public Person updateUser (@PathVariable(name="id") Long id, @RequestBody Person u){
-        u.setIdUser(id);
-        return personRepository.save(u);
-    }
-
-    //ne peut pas être delete si elle est lié à une réservation -- on va dire pour le moment qu'on peut pas supprimer de person
-    public void deleteUser (@PathVariable(name="id") Long id){
-        try {
-            personRepository.deleteById(id);
-        } catch (Exception exception){
-
-            System.out.println("cet utilisaeur possède une réservation");
-        }
-    }
-
-**/
-
-
 }

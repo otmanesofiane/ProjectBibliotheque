@@ -15,9 +15,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class LivreRentalService {
 
-
-    // private List<Car> cars = new ArrayList<Car>();
-
     @Autowired
     private JmsTemplate jmsTemplate;
 
@@ -66,29 +63,6 @@ public class LivreRentalService {
         }
         return null;
     }
-/**
- @PutMapping("/livre/{titre}")
- public void rent(@PathVariable("titre") String titre, @RequestParam(value="rent",
- required = true)boolean rent, @RequestBody Dates dates){
- for(Livre livre: livreRepository.findAll()){
- if(livre.getTitre().equals(titre)){
- livre.setDates(dates);
- livre.setRented(true);
- }
- }
- }**/
-
-    /**
-     @PostMapping("/livre")
-     public void addCar(@RequestBody Livre livre) {
-     System.out.println(livre);
-     livreRepository.save(livre);
-     livreRepository.count();
-     //carRepository.findAll().add(car);
-     jmsTemplate.convertAndSend("soso-queue-Biblio2", livre.toString());
-     }
-
-     **/
 
 }
 
